@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Planner</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="home-hero" aria-label="Home">
+        <div class="city-mosaic" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?auto=format&fit=crop&w=900&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=80" alt="" />
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80" alt="" />
+        </div>
+        <div class="home-content">
+          <h1>Plan your trip today</h1>
+          <p>Curated city photos, researched routes, flight guidance, and hotel neighborhoods in one planner.</p>
+          <button class="primary-button" id="startPlanningBtn" type="button">Start planning</button>
+        </div>
+      </section>
+
+      <section class="workspace" id="planner" aria-label="Travel planner">
+        <aside class="sidebar">
+          <div class="brand-row">
+            <div>
+              <h1>Trip Planner</h1>
+            </div>
+          </div>
+
+          <form class="trip-form" id="tripForm">
+            <label>
+              Destination
+              <select id="destination" name="destination"></select>
+            </label>
+
+            <div class="field-pair">
+              <label>
+                Start
+                <input id="startDate" name="startDate" type="date" />
+              </label>
+              <label>
+                End
+                <input id="endDate" name="endDate" type="date" />
+              </label>
+            </div>
+
+            <div class="field-pair">
+              <label>
+                Travelers
+                <input id="travelers" name="travelers" type="number" min="1" value="2" />
+              </label>
+              <label>
+                Budget
+                <input id="budget" name="budget" type="number" min="0" value="1200" />
+              </label>
+            </div>
+
+            <label>
+              Trip style
+              <select id="tripStyle" name="tripStyle">
+                <option>Food and neighborhoods</option>
+                <option>Beach reset</option>
+                <option>Museums and history</option>
+                <option>Outdoor adventure</option>
+                <option>Remote work escape</option>
+              </select>
+            </label>
+
+            <label>
+              Departure city
+              <input id="departureCity" name="departureCity" type="text" value="New York" />
+            </label>
+
+            <label>
+              Travel priority
+              <select id="travelPriority" name="travelPriority">
+                <option>Best value</option>
+                <option>Shortest travel time</option>
+                <option>Comfort first</option>
+                <option>Flexible dates</option>
+              </select>
+            </label>
+          </form>
+
+          <div class="budget-panel">
+            <div>
+              <p class="label">Estimated spend</p>
+              <strong id="spentTotal">$0</strong>
+            </div>
+            <div class="meter" aria-label="Budget used">
+              <span id="budgetMeter"></span>
+            </div>
+            <p id="budgetStatus">Add plans to estimate your trip.</p>
+          </div>
+        </aside>
+
+        <section class="planner-board">
+          <div class="hero">
+            <img
+              id="heroImage"
+              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+              alt="Scenic travel destination"
+            />
+            <div class="hero-content">
+              <div>
+                <p class="eyebrow">Current trip</p>
+                <h2 id="tripTitle">Choose a destination</h2>
+                <p id="tripDetails">Start from Ideas to build your route.</p>
+              </div>
+              <button class="primary-button" id="addSampleBtn" type="button">Add Smart Day</button>
+            </div>
+          </div>
+
+          <nav class="tabs" aria-label="Planner sections">
+            <button class="tab active" data-tab="itinerary" type="button">Itinerary</button>
+            <button class="tab" data-tab="travel" type="button">Flights & Stays</button>
+            <button class="tab" data-tab="ideas" type="button">Ideas</button>
+            <button class="tab" data-tab="packing" type="button">Packing</button>
+          </nav>
+
+          <section class="tab-panel active" id="itineraryPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Day by day</p>
+                <h3>Your route</h3>
+              </div>
+              <form class="quick-add" id="activityForm">
+                <input id="activityName" type="text" placeholder="Add activity" />
+                <input id="activityCost" type="number" min="0" placeholder="$" />
+                <button type="submit">Add</button>
+              </form>
+            </div>
+            <div class="itinerary-list" id="itineraryList"></div>
+          </section>
+
+          <section class="tab-panel" id="travelPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Personal picks</p>
+                <h3>Flights & hotels</h3>
+              </div>
+              <p class="section-note">Smart suggestions based on destination, style, budget, dates, and priority.</p>
+            </div>
+            <div class="travel-grid" id="travelGrid"></div>
+          </section>
+
+          <section class="tab-panel" id="ideasPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Popular places</p>
+                <h3>Pick a destination</h3>
+              </div>
+              <p class="section-note">Choose from the cities and towns with curated photos and routes.</p>
+            </div>
+            <div class="idea-grid" id="ideaGrid"></div>
+          </section>
+
+          <section class="tab-panel" id="packingPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Before you go</p>
+                <h3>Packing list</h3>
+              </div>
+              <button class="ghost-button" id="resetPackingBtn" type="button">Reset</button>
+            </div>
+            <div class="packing-list" id="packingList"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

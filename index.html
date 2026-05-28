@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atlasly Travel Planner</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Travel planner">
+        <aside class="sidebar">
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true">A</div>
+            <div>
+              <p class="eyebrow">Atlasly</p>
+              <h1>Trip Planner</h1>
+            </div>
+          </div>
+
+          <form class="trip-form" id="tripForm">
+            <label>
+              Destination
+              <input id="destination" name="destination" type="text" value="Lisbon, Portugal" />
+            </label>
+
+            <div class="field-pair">
+              <label>
+                Start
+                <input id="startDate" name="startDate" type="date" />
+              </label>
+              <label>
+                End
+                <input id="endDate" name="endDate" type="date" />
+              </label>
+            </div>
+
+            <div class="field-pair">
+              <label>
+                Travelers
+                <input id="travelers" name="travelers" type="number" min="1" value="2" />
+              </label>
+              <label>
+                Budget
+                <input id="budget" name="budget" type="number" min="0" value="1200" />
+              </label>
+            </div>
+
+            <label>
+              Trip style
+              <select id="tripStyle" name="tripStyle">
+                <option>Food and neighborhoods</option>
+                <option>Beach reset</option>
+                <option>Museums and history</option>
+                <option>Outdoor adventure</option>
+                <option>Remote work escape</option>
+              </select>
+            </label>
+          </form>
+
+          <div class="budget-panel">
+            <div>
+              <p class="label">Estimated spend</p>
+              <strong id="spentTotal">$0</strong>
+            </div>
+            <div class="meter" aria-label="Budget used">
+              <span id="budgetMeter"></span>
+            </div>
+            <p id="budgetStatus">Add plans to estimate your trip.</p>
+          </div>
+        </aside>
+
+        <section class="planner-board">
+          <div class="hero">
+            <img
+              id="heroImage"
+              src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1600&q=80"
+              alt="Scenic travel destination"
+            />
+            <div class="hero-content">
+              <div>
+                <p class="eyebrow">Current trip</p>
+                <h2 id="tripTitle">Lisbon, Portugal</h2>
+                <p id="tripDetails">2 travelers • Food and neighborhoods</p>
+              </div>
+              <button class="primary-button" id="addSampleBtn" type="button">Add Smart Day</button>
+            </div>
+          </div>
+
+          <nav class="tabs" aria-label="Planner sections">
+            <button class="tab active" data-tab="itinerary" type="button">Itinerary</button>
+            <button class="tab" data-tab="ideas" type="button">Ideas</button>
+            <button class="tab" data-tab="packing" type="button">Packing</button>
+          </nav>
+
+          <section class="tab-panel active" id="itineraryPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Day by day</p>
+                <h3>Your route</h3>
+              </div>
+              <form class="quick-add" id="activityForm">
+                <input id="activityName" type="text" placeholder="Add activity" />
+                <input id="activityCost" type="number" min="0" placeholder="$" />
+                <button type="submit">Add</button>
+              </form>
+            </div>
+            <div class="itinerary-list" id="itineraryList"></div>
+          </section>
+
+          <section class="tab-panel" id="ideasPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Starter routes</p>
+                <h3>Pick a mood</h3>
+              </div>
+            </div>
+            <div class="idea-grid" id="ideaGrid"></div>
+          </section>
+
+          <section class="tab-panel" id="packingPanel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Before you go</p>
+                <h3>Packing list</h3>
+              </div>
+              <button class="ghost-button" id="resetPackingBtn" type="button">Reset</button>
+            </div>
+            <div class="packing-list" id="packingList"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

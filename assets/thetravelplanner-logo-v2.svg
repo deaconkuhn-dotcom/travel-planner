@@ -1,0 +1,18 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">thetravelplanner.co logo</title>
+  <desc id="desc">A clean travel planner logo with a compass pin mark and the domain thetravelplanner.co.</desc>
+  <rect width="1200" height="320" rx="40" fill="#FFFFFF"/>
+  <g transform="translate(88 60)">
+    <circle cx="100" cy="100" r="96" fill="#EAF8F6"/>
+    <path d="M100 28C66.9 28 40 54.9 40 88C40 134.5 100 178 100 178C100 178 160 134.5 160 88C160 54.9 133.1 28 100 28Z" fill="#0E9A9A"/>
+    <circle cx="100" cy="88" r="38" fill="#FFFFFF"/>
+    <path d="M123.5 63.5L109.8 113.2C109.1 115.8 105.7 116.3 104.2 114.1L94.7 100.3L78.7 93.5C76.2 92.4 76.4 88.8 79 88L119.4 59.9C122 59.1 124.2 60.9 123.5 63.5Z" fill="#102A3A"/>
+    <path d="M96.4 100.2L121.5 61.9L87.3 91.8L96.4 100.2Z" fill="#FF6B5A"/>
+    <path d="M37 203C70 224 130 224 163 203" stroke="#102A3A" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(320 108)">
+    <text x="0" y="78" fill="#102A3A" font-family="Inter, Avenir Next, Arial, sans-serif" font-size="78" font-weight="850" letter-spacing="0">thetravelplanner</text>
+    <text x="676" y="78" fill="#0E9A9A" font-family="Inter, Avenir Next, Arial, sans-serif" font-size="78" font-weight="850" letter-spacing="0">.co</text>
+    <path d="M8 118C130 143 255 143 384 119C503 97 628 95 748 119" stroke="#FF6B5A" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

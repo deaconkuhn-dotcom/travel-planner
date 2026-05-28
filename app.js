@@ -6,6 +6,7 @@ const endDateInput = document.querySelector("#endDate");
 const travelersInput = document.querySelector("#travelers");
 const budgetInput = document.querySelector("#budget");
 const tripStyleInput = document.querySelector("#tripStyle");
+const tripPaceInput = document.querySelector("#tripPace");
 const departureCityInput = document.querySelector("#departureCity");
 const travelPriorityInput = document.querySelector("#travelPriority");
 const tripTitle = document.querySelector("#tripTitle");
@@ -376,6 +377,55 @@ let activeHeroImage = defaultHeroImage;
 
 let itinerary = [];
 
+const interestDetails = {
+  food: {
+    label: "food stops",
+    cost: 42,
+    description: "Add a standout meal, market stop, cafe, or casual tasting route.",
+  },
+  culture: {
+    label: "culture and landmarks",
+    cost: 38,
+    description: "Use one museum, historic site, gallery, or architecture stop as the anchor.",
+  },
+  outdoor: {
+    label: "outdoor time",
+    cost: 32,
+    description: "Build in a scenic walk, viewpoint, garden, beach, trail, or water route.",
+  },
+  relaxation: {
+    label: "relaxed time",
+    cost: 34,
+    description: "Keep the pace softer with downtime, spa time, a long lunch, or an easy sunset.",
+  },
+  shopping: {
+    label: "local shopping",
+    cost: 36,
+    description: "Add markets, design shops, boutiques, craft streets, or souvenirs.",
+  },
+  nightlife: {
+    label: "evening energy",
+    cost: 54,
+    description: "Finish with live music, a rooftop, theatre, late dinner, or a night district.",
+  },
+  hidden: {
+    label: "hidden gems",
+    cost: 28,
+    description: "Add a quieter neighborhood, lesser-known viewpoint, local cafe, or side street.",
+  },
+};
+
+const dayRoles = [
+  "Arrival orientation",
+  "Signature landmarks",
+  "Neighborhood discovery",
+  "Food and local flavor",
+  "Nature or waterfront reset",
+  "Creative culture day",
+  "Day-trip contrast",
+  "Open-choice finale",
+];
+
 const travelEssentials = {
   "Lisbon, Portugal": {
     airport: "LIS",
@@ -664,6 +714,14 @@ function currency(value) {
   }).format(value || 0);
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
 function renderDestinationOptions() {
   destinationInput.innerHTML = "";
   const placeholder = document.createElement("option");
@@ -757,6 +815,23 @@ function getTripDays() {
   if (!start || !end) return 5;
   const days = Math.round((end - start) / 86400000) + 1;
   return Number.isFinite(days) ? Math.max(days, 1) : 5;
+}
+
+function getSelectedInterests() {
+  const selected = [...document.querySelectorAll('input[name="interests"]:checked')].map((input) => input.value);
+  return selected.length ? selected : [getStyleKey(tripStyleInput.value)];
+}
+
+function getPaceNote() {
+  if (tripPaceInput.value === "Slow and relaxed") {
+    return "Keep this day unhurried with one main plan, buffer time, and an easy evening.";
+  }
+
+  if (tripPaceInput.value === "Packed and adventurous") {
+    return "Make this an active day with an early start, one backup option, and a fuller evening.";
+  }
+
+  return "Keep a balanced pace with one anchor activity and room to wander.";
 }
 
 function buildTravelUrl(kind, destination, essentials) {
@@ -891,18 +966,38 @@ function getBudgetTierNote(tier) {
   return "Balanced version: mix paid highlights with flexible neighborhood time.";
 }
 
-function adaptActivitiesToBudget(destination) {
-  const totalBudget = Number(budgetInput.value || destination.budget);
-  const baseTotal = destination.activities.reduce((sum, activity) => sum + Number(activity.cost || 0), 0);
-  const targetActivityBudget = Math.max(totalBudget * 0.38, baseTotal * 0.55);
-  const scale = baseTotal > 0 ? targetActivityBudget / baseTotal : 1;
-  const tier = getBudgetTier(destination);
+function stripDayPrefix(name) {
+  return name.replace(/^Day\s+\d+:\s*/i, "");
+}
 
-  return destination.activities.map((activity) => ({
-    ...activity,
-    cost: Math.max(10, Math.round((Number(activity.cost || 0) * scale) / 5) * 5),
-    description: `${getBudgetTierNote(tier)} ${activity.description}`,
-  }));
+function buildCustomItinerary(destination) {
+  const totalBudget = Number(budgetInput.value || destination.budget);
+  const days = getTripDays();
+  const interests = getSelectedInterests();
+  const pace = tripPaceInput.value;
+  const tier = getBudgetTier(destination);
+  const budgetNote = getBudgetTierNote(tier);
+  const paceNote = getPaceNote();
+  const activityTarget = Math.max(totalBudget * 0.38, days * 45);
+  const baseDailyBudget = activityTarget / days;
+  const paceMultiplier = pace === "Packed and adventurous" ? 1.18 : pace === "Slow and relaxed" ? 0.86 : 1;
+
+  return Array.from({ length: days }, (_, index) => {
+    const baseActivity = destination.activities[index % destination.activities.length];
+    const interestKey = interests[index % interests.length];
+    const interest = interestDetails[interestKey] || interestDetails.food;
+    const dayRole = dayRoles[index % dayRoles.length];
+    const baseTitle = stripDayPrefix(baseActivity.name);
+    const repeatTag = index >= destination.activities.length ? ` deeper route ${Math.floor(index / destination.activities.length) + 1}` : "";
+    const costSeed = Number(baseActivity.cost || 0) * 0.55 + interest.cost + baseDailyBudget * 0.35;
+    const dayCost = Math.max(10, Math.round((costSeed * paceMultiplier) / 5) * 5);
+
+    return {
+      name: `Day ${index + 1}: ${dayRole} - ${baseTitle}${repeatTag}`,
+      cost: dayCost,
+      description: `${budgetNote} ${paceNote} Focus on ${interest.label}: ${interest.description} Local anchor: ${baseActivity.description}`,
+    };
+  });
 }
 
 function renderItinerary() {
@@ -925,12 +1020,33 @@ function renderItinerary() {
     card.className = "day-card";
     card.innerHTML = `
       <div class="day-number"><span>${index + 1}</span>Day</div>
-      <div>
-        <h4>${item.name}</h4>
-        <p>${item.description || (index === 0 ? "Keep this flexible while travel energy is low." : "Saved to your trip plan.")}</p>
+      <div class="day-editor">
+        <input type="text" value="${escapeHtml(item.name)}" aria-label="Day ${index + 1} title" />
+        <textarea aria-label="Day ${index + 1} description">${escapeHtml(item.description || (index === 0 ? "Keep this flexible while travel energy is low." : "Saved to your trip plan."))}</textarea>
       </div>
-      <div class="cost-chip">${currency(item.cost)}</div>
+      <div class="day-tools">
+        <input type="number" min="0" value="${Number(item.cost || 0)}" aria-label="Day ${index + 1} cost" />
+        <button class="remove-day" type="button">Remove</button>
+      </div>
     `;
+    const [nameInput, descriptionInput] = card.querySelectorAll(".day-editor input, .day-editor textarea");
+    const costInput = card.querySelector(".day-tools input");
+    const removeButton = card.querySelector(".remove-day");
+
+    nameInput.addEventListener("input", (event) => {
+      itinerary[index].name = event.target.value;
+    });
+    descriptionInput.addEventListener("input", (event) => {
+      itinerary[index].description = event.target.value;
+    });
+    costInput.addEventListener("input", (event) => {
+      itinerary[index].cost = Number(event.target.value || 0);
+      renderBudget();
+    });
+    removeButton.addEventListener("click", () => {
+      itinerary.splice(index, 1);
+      renderItinerary();
+    });
     itineraryList.append(card);
   });
 
@@ -951,7 +1067,7 @@ function applyDestinationPlan(destinationName) {
   if (!Number(budgetInput.value || 0)) {
     budgetInput.value = destination.budget;
   }
-  itinerary = adaptActivitiesToBudget(destination);
+  itinerary = buildCustomItinerary(destination);
   renderAll();
 }
 
@@ -1020,12 +1136,24 @@ function switchTab(tabName) {
 
 tripForm.addEventListener("input", (event) => {
   if (event.target === budgetInput) return;
+  const destination = findDestinationPhoto(destinationInput.value);
+  const shouldRebuildItinerary =
+    destination &&
+    (event.target === tripStyleInput ||
+      event.target === tripPaceInput ||
+      event.target === startDateInput ||
+      event.target === endDateInput ||
+      event.target.name === "interests");
+
+  if (shouldRebuildItinerary) {
+    itinerary = buildCustomItinerary(destination);
+  }
   renderAll();
 });
 budgetInput.addEventListener("input", () => {
   const destination = findDestinationPhoto(destinationInput.value);
   if (destination) {
-    itinerary = adaptActivitiesToBudget(destination);
+    itinerary = buildCustomItinerary(destination);
     renderAll();
   }
 });
@@ -1055,16 +1183,22 @@ addSampleBtn.addEventListener("click", () => {
   }
 
   const style = tripStyleInput.value.toLowerCase();
+  const selectedInterest = getSelectedInterests()[itinerary.length % getSelectedInterests().length];
+  const interest = interestDetails[selectedInterest] || interestDetails.food;
+  const nextDay = itinerary.length + 1;
   const sample =
     style.includes("beach")
-      ? { name: "Slow beach morning and seafood dinner", cost: 110 }
+      ? { name: `Day ${nextDay}: Custom beach reset`, cost: 110 }
       : style.includes("history")
-        ? { name: "Museum morning and old town walking route", cost: 65 }
+        ? { name: `Day ${nextDay}: Custom museum and old-town route`, cost: 65 }
         : style.includes("outdoor")
-          ? { name: "Trail day with picnic supplies", cost: 75 }
-          : { name: "Neighborhood crawl with one booked dinner", cost: 95 };
+          ? { name: `Day ${nextDay}: Custom trail and viewpoint day`, cost: 75 }
+          : { name: `Day ${nextDay}: Custom neighborhood crawl`, cost: 95 };
 
-  itinerary.push(sample);
+  itinerary.push({
+    ...sample,
+    description: `${getPaceNote()} Focus on ${interest.label}: ${interest.description}`,
+  });
   renderItinerary();
 });
 

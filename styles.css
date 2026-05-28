@@ -217,6 +217,40 @@ label {
   font-weight: 700;
 }
 
+.preference-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfdfb;
+}
+
+.preference-panel legend {
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.preference-panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  color: var(--ink);
+  font-size: 0.86rem;
+}
+
+.preference-panel input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--accent);
+}
+
 input,
 select {
   width: 100%;
@@ -433,9 +467,9 @@ select:focus {
 
 .day-card {
   display: grid;
-  grid-template-columns: 120px 1fr auto;
+  grid-template-columns: 104px minmax(0, 1fr) 108px;
   gap: 16px;
-  align-items: center;
+  align-items: start;
   padding: 16px;
 }
 
@@ -463,6 +497,60 @@ select:focus {
 .day-card p {
   margin-bottom: 0;
   color: var(--muted);
+}
+
+.day-editor {
+  display: grid;
+  gap: 8px;
+}
+
+.day-editor input,
+.day-editor textarea {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--ink);
+  background: #f8faf7;
+  outline: none;
+}
+
+.day-editor input {
+  font-weight: 850;
+}
+
+.day-editor textarea {
+  min-height: 74px;
+  resize: vertical;
+  color: var(--muted);
+  font: inherit;
+  line-height: 1.45;
+}
+
+.day-editor input:focus,
+.day-editor textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(15, 139, 141, 0.15);
+  background: #fff;
+}
+
+.day-tools {
+  display: grid;
+  gap: 8px;
+}
+
+.day-tools input {
+  min-height: 40px;
+  text-align: center;
+}
+
+.remove-day {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--berry);
+  font-weight: 850;
+  background: rgba(162, 62, 72, 0.1);
 }
 
 .cost-chip {
@@ -680,6 +768,10 @@ select:focus {
   .field-pair,
   .quick-add,
   .day-card {
+    grid-template-columns: 1fr;
+  }
+
+  .preference-panel {
     grid-template-columns: 1fr;
   }
 

@@ -1170,6 +1170,54 @@ function getThingToDo(place) {
   return place.action || `Visit ${place.name}`;
 }
 
+function getInterestActivity(interestKey, destination) {
+  const options = {
+    food: `Try a local food stop or market near ${destination.name.split(",")[0]}.`,
+    culture: "Add a museum, historic site, gallery, or architecture stop nearby.",
+    outdoor: "Take a scenic walk, garden break, waterfront route, or viewpoint detour.",
+    relaxation: "Build in a slow cafe, spa, beach, pool, or long lunch pause.",
+    shopping: "Browse local shops, design stores, craft stalls, or a market street.",
+    nightlife: "Finish with live music, a rooftop, theatre, late dinner, or night district.",
+    hidden: "Add a quieter side street, small neighborhood, lesser-known viewpoint, or local cafe.",
+    beach: "Add a beach walk, swim stop, seafood meal, or sunset by the water.",
+    work: "Add a calm cafe, easy transit route, or low-stress neighborhood reset.",
+  };
+
+  return options[interestKey] || options.hidden;
+}
+
+function getEveningActivity(destination, interestKey) {
+  if (tripPaceInput.value === "Slow and relaxed") {
+    return "Keep the evening easy with dinner close to your hotel or a sunset walk.";
+  }
+
+  if (tripPaceInput.value === "Packed and adventurous") {
+    return `Add one more ${interestDetails[interestKey]?.label || "local"} stop before dinner.`;
+  }
+
+  return `End with dinner in a walkable ${destination.name.split(",")[0]} neighborhood.`;
+}
+
+function buildDayActivities(candidate, destination, dayNumber, interestKey) {
+  return [
+    {
+      time: "Morning",
+      text: getThingToDo(candidate.place),
+    },
+    {
+      time: "Afternoon",
+      text: getInterestActivity(interestKey, destination),
+    },
+    {
+      time: "Evening",
+      text: getEveningActivity(destination, interestKey),
+    },
+  ].map((activity, index) => ({
+    ...activity,
+    id: `${dayNumber}-${index}`,
+  }));
+}
+
 function getPlaceIdea(destination, index, fallbackName) {
   const places = researchedPlaceIdeas[destination.name] || [];
   const researchedPlace = places[index % places.length];
@@ -1258,6 +1306,7 @@ function makeItineraryDay(candidate, destination, dayNumber, totalDays) {
     cost: dayCost,
     description: `${budgetNote} ${paceNote} Focus on ${interest.label}: ${interest.description} Fresh idea: ${candidate.description}`,
     place: candidate.place,
+    activities: buildDayActivities(candidate, destination, dayNumber, interestKey),
   };
 }
 
@@ -1297,6 +1346,13 @@ function renderItinerary() {
       note: "added by you",
       action: "Book or plan the custom activity you added.",
     };
+    const activities = item.activities?.length
+      ? item.activities
+      : [
+          { time: "Main plan", text: getThingToDo(place) },
+          { time: "Extra stop", text: "Add one nearby meal, walk, or neighborhood stop." },
+          { time: "Evening", text: "Finish with dinner or a relaxed final activity." },
+        ];
     const ticketUrl = getTicketUrl(place);
     const ticketLabel = getTicketLabel(place);
     card.className = "day-card";
@@ -1311,6 +1367,21 @@ function renderItinerary() {
           <small>From: ${escapeHtml(place.from)} · ${escapeHtml(place.note)}</small>
           <p>${escapeHtml(getThingToDo(place))}</p>
           <a href="${escapeHtml(ticketUrl)}" target="_blank" rel="noreferrer">${ticketLabel}</a>
+        </div>
+        <div class="activity-stack" aria-label="Activities for day ${index + 1}">
+          <span>Daily activity schedule</span>
+          <ul>
+            ${activities
+              .map(
+                (activity) => `
+                  <li>
+                    <strong>${escapeHtml(activity.time)}</strong>
+                    <p>${escapeHtml(activity.text)}</p>
+                  </li>
+                `,
+              )
+              .join("")}
+          </ul>
         </div>
       </div>
       <div class="day-tools">

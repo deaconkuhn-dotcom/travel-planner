@@ -625,6 +625,55 @@ select:focus {
   background: var(--accent-strong);
 }
 
+.activity-stack {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+.activity-stack > span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.activity-stack ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.activity-stack li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.activity-stack li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.activity-stack strong {
+  color: var(--accent-strong);
+  font-size: 0.84rem;
+}
+
+.activity-stack p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.38;
+}
+
 .day-tools {
   display: grid;
   gap: 8px;

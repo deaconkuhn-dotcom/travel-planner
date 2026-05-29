@@ -426,6 +426,114 @@ const dayRoles = [
   "Open-choice finale",
 ];
 
+const extraDayIdeas = [
+  {
+    title: "Market-to-cafe wander",
+    cost: 58,
+    interests: ["food", "shopping", "hidden"],
+    role: "Food and local flavor",
+    description: "Start with a local market or bakery, then follow the day through cafes, small shops, and a casual dinner area.",
+  },
+  {
+    title: "Lesser-known neighborhood loop",
+    cost: 44,
+    interests: ["hidden", "food", "culture"],
+    role: "Neighborhood discovery",
+    description: "Choose a quieter district away from the biggest sights, then build the route around streets, cafes, murals, and local viewpoints.",
+  },
+  {
+    title: "Scenic transit and viewpoint day",
+    cost: 52,
+    interests: ["outdoor", "hidden", "relaxation"],
+    role: "Nature or waterfront reset",
+    description: "Use a ferry, train, tram, or scenic bus route to connect viewpoints, waterfront paths, parks, and a relaxed meal stop.",
+  },
+  {
+    title: "Hands-on culture and maker studios",
+    cost: 72,
+    interests: ["culture", "shopping", "hidden"],
+    role: "Creative culture day",
+    description: "Look for a workshop, small gallery, design studio, craft street, or local class that shows how the place is made by people who live there.",
+  },
+  {
+    title: "Slow morning and golden-hour evening",
+    cost: 64,
+    interests: ["relaxation", "food", "outdoor"],
+    role: "Open-choice finale",
+    description: "Keep the morning light, leave space for a long lunch or wellness stop, then save the best viewpoint or waterfront area for sunset.",
+  },
+  {
+    title: "Museum alternative and independent galleries",
+    cost: 66,
+    interests: ["culture", "hidden"],
+    role: "Creative culture day",
+    description: "Skip the biggest museum repeat and choose smaller galleries, house museums, libraries, or architecture stops with nearby cafes.",
+  },
+  {
+    title: "Local food crawl by neighborhood",
+    cost: 82,
+    interests: ["food", "nightlife"],
+    role: "Food and local flavor",
+    description: "Pick one dining neighborhood and make the route about snacks, one sit-down meal, dessert, and an optional late drink or music stop.",
+  },
+  {
+    title: "Parks, gardens, and easy trails",
+    cost: 38,
+    interests: ["outdoor", "relaxation"],
+    role: "Nature or waterfront reset",
+    description: "Use green space to reset the trip: gardens, short trails, riverside paths, picnic spots, and low-cost scenic time.",
+  },
+  {
+    title: "Boutique shopping and design streets",
+    cost: 74,
+    interests: ["shopping", "culture", "food"],
+    role: "Neighborhood discovery",
+    description: "Plan around independent stores, bookshops, design streets, vintage stops, and a good lunch nearby.",
+  },
+  {
+    title: "Night market or live-event evening",
+    cost: 88,
+    interests: ["nightlife", "food", "culture"],
+    role: "Food and local flavor",
+    description: "Keep the day lighter and make the evening the anchor with a night market, theatre, live music, rooftop, or late-food district.",
+  },
+  {
+    title: "Waterfront, beach, or pool reset",
+    cost: 70,
+    interests: ["relaxation", "outdoor", "food"],
+    role: "Nature or waterfront reset",
+    description: "Give the trip a softer day near water, then add seafood, sunset drinks, or a simple walk instead of another landmark push.",
+  },
+  {
+    title: "Day-trip town or outer district",
+    cost: 118,
+    interests: ["culture", "outdoor", "hidden"],
+    role: "Day-trip contrast",
+    description: "Choose a nearby town, island, mountain edge, beach area, or outer district that feels different from the main city.",
+  },
+  {
+    title: "Food class, tasting, or chef-led meal",
+    cost: 126,
+    interests: ["food", "culture"],
+    role: "Food and local flavor",
+    description: "Add a cooking class, tasting, food tour, or reservation that teaches the local cuisine instead of only eating it.",
+  },
+  {
+    title: "Photo walk and best-light route",
+    cost: 46,
+    interests: ["outdoor", "hidden", "culture"],
+    role: "Neighborhood discovery",
+    description: "Plan the day around morning and golden-hour light, using side streets, viewpoints, architecture, and one flexible cafe break.",
+  },
+  {
+    title: "Free-choice personal day",
+    cost: 40,
+    interests: ["relaxation", "hidden", "shopping"],
+    role: "Open-choice finale",
+    description: "Leave this day open for anything the traveler discovers during the trip: a return meal, an extra shop, a spa, or a favorite neighborhood.",
+  },
+];
+
 const travelEssentials = {
   "Lisbon, Portugal": {
     airport: "LIS",
@@ -970,33 +1078,92 @@ function stripDayPrefix(name) {
   return name.replace(/^Day\s+\d+:\s*/i, "");
 }
 
-function buildCustomItinerary(destination) {
+function normalizePlanText(text) {
+  return stripDayPrefix(String(text || ""))
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function getUsedPlanTexts(items) {
+  return items.map((item) => normalizePlanText(`${item.name} ${item.description || ""}`));
+}
+
+function buildActivityCandidates(destination) {
+  const baseActivities = destination.activities.map((activity, index) => ({
+    title: stripDayPrefix(activity.name),
+    cost: Number(activity.cost || 0),
+    description: activity.description,
+    interests: ["food", "culture", "outdoor", "relaxation", "shopping", "nightlife", "hidden"],
+    role: dayRoles[index % dayRoles.length],
+  }));
+
+  return [
+    ...baseActivities,
+    ...extraDayIdeas.map((idea) => ({
+      ...idea,
+      description: `${idea.description} Personalize it for ${destination.name} using the neighborhood that best matches your mood that day.`,
+    })),
+  ];
+}
+
+function isCandidateUsed(candidate, usedTexts) {
+  const title = normalizePlanText(candidate.title);
+  return usedTexts.some((text) => text.includes(title));
+}
+
+function createFallbackCandidate(dayNumber, destination, preferredInterest) {
+  const interest = interestDetails[preferredInterest] || interestDetails.hidden;
+  return {
+    title: `Personal discovery day ${dayNumber}`,
+    cost: interest.cost + 35,
+    description: `Use this as a fully custom ${destination.name} day built around ${interest.label}. Pick something new you have not done yet, then update this card with the exact plan.`,
+    interests: [preferredInterest],
+    role: "Open-choice finale",
+  };
+}
+
+function chooseFreshCandidate(candidates, usedTexts, preferredInterest, dayNumber, destination) {
+  const unusedPreferred = candidates.find((candidate) => candidate.interests.includes(preferredInterest) && !isCandidateUsed(candidate, usedTexts));
+  const unusedAny = candidates.find((candidate) => !isCandidateUsed(candidate, usedTexts));
+  const candidate = unusedPreferred || unusedAny || createFallbackCandidate(dayNumber, destination, preferredInterest);
+
+  usedTexts.push(normalizePlanText(`${candidate.title} ${candidate.description}`));
+  return candidate;
+}
+
+function makeItineraryDay(candidate, destination, dayNumber, totalDays) {
   const totalBudget = Number(budgetInput.value || destination.budget);
-  const days = getTripDays();
   const interests = getSelectedInterests();
   const pace = tripPaceInput.value;
   const tier = getBudgetTier(destination);
   const budgetNote = getBudgetTierNote(tier);
   const paceNote = getPaceNote();
-  const activityTarget = Math.max(totalBudget * 0.38, days * 45);
-  const baseDailyBudget = activityTarget / days;
+  const activityTarget = Math.max(totalBudget * 0.38, totalDays * 45);
+  const baseDailyBudget = activityTarget / totalDays;
   const paceMultiplier = pace === "Packed and adventurous" ? 1.18 : pace === "Slow and relaxed" ? 0.86 : 1;
+  const interestKey = interests[(dayNumber - 1) % interests.length];
+  const interest = interestDetails[interestKey] || interestDetails.food;
+  const costSeed = Number(candidate.cost || 0) * 0.65 + interest.cost + baseDailyBudget * 0.35;
+  const dayCost = Math.max(10, Math.round((costSeed * paceMultiplier) / 5) * 5);
+
+  return {
+    name: `Day ${dayNumber}: ${candidate.role} - ${candidate.title}`,
+    cost: dayCost,
+    description: `${budgetNote} ${paceNote} Focus on ${interest.label}: ${interest.description} Fresh idea: ${candidate.description}`,
+  };
+}
+
+function buildCustomItinerary(destination) {
+  const days = getTripDays();
+  const interests = getSelectedInterests();
+  const candidates = buildActivityCandidates(destination);
+  const usedTexts = [];
 
   return Array.from({ length: days }, (_, index) => {
-    const baseActivity = destination.activities[index % destination.activities.length];
-    const interestKey = interests[index % interests.length];
-    const interest = interestDetails[interestKey] || interestDetails.food;
-    const dayRole = dayRoles[index % dayRoles.length];
-    const baseTitle = stripDayPrefix(baseActivity.name);
-    const repeatTag = index >= destination.activities.length ? ` deeper route ${Math.floor(index / destination.activities.length) + 1}` : "";
-    const costSeed = Number(baseActivity.cost || 0) * 0.55 + interest.cost + baseDailyBudget * 0.35;
-    const dayCost = Math.max(10, Math.round((costSeed * paceMultiplier) / 5) * 5);
-
-    return {
-      name: `Day ${index + 1}: ${dayRole} - ${baseTitle}${repeatTag}`,
-      cost: dayCost,
-      description: `${budgetNote} ${paceNote} Focus on ${interest.label}: ${interest.description} Local anchor: ${baseActivity.description}`,
-    };
+    const preferredInterest = interests[index % interests.length];
+    const candidate = chooseFreshCandidate(candidates, usedTexts, preferredInterest, index + 1, destination);
+    return makeItineraryDay(candidate, destination, index + 1, days);
   });
 }
 
@@ -1182,23 +1349,16 @@ addSampleBtn.addEventListener("click", () => {
     return;
   }
 
-  const style = tripStyleInput.value.toLowerCase();
-  const selectedInterest = getSelectedInterests()[itinerary.length % getSelectedInterests().length];
-  const interest = interestDetails[selectedInterest] || interestDetails.food;
-  const nextDay = itinerary.length + 1;
-  const sample =
-    style.includes("beach")
-      ? { name: `Day ${nextDay}: Custom beach reset`, cost: 110 }
-      : style.includes("history")
-        ? { name: `Day ${nextDay}: Custom museum and old-town route`, cost: 65 }
-        : style.includes("outdoor")
-          ? { name: `Day ${nextDay}: Custom trail and viewpoint day`, cost: 75 }
-          : { name: `Day ${nextDay}: Custom neighborhood crawl`, cost: 95 };
+  const destination = findDestinationPhoto(destinationInput.value);
+  if (!destination) return;
 
-  itinerary.push({
-    ...sample,
-    description: `${getPaceNote()} Focus on ${interest.label}: ${interest.description}`,
-  });
+  const selectedInterests = getSelectedInterests();
+  const selectedInterest = selectedInterests[itinerary.length % selectedInterests.length];
+  const nextDay = itinerary.length + 1;
+  const candidates = buildActivityCandidates(destination);
+  const candidate = chooseFreshCandidate(candidates, getUsedPlanTexts(itinerary), selectedInterest, nextDay, destination);
+
+  itinerary.push(makeItineraryDay(candidate, destination, nextDay, Math.max(nextDay, getTripDays())));
   renderItinerary();
 });
 

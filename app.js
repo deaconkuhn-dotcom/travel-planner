@@ -585,6 +585,17 @@ const researchedPlaceIdeas = {
   ],
 };
 
+const officialTicketLinks = {
+  "teamLab Planets": "https://teamlabplanets.dmm.com/en/ticket/",
+  "Louvre Museum": "https://www.ticketlouvre.fr/louvre/b2c/index.cfm/change.language/lang/en-GB/",
+  "Eiffel Tower": "https://ticket.toureiffel.paris/en",
+  "Atelier des Lumieres": "https://www.atelier-lumieres.com/en/tickets",
+  "Gardens by the Bay": "https://www.gardensbythebay.com.sg/en/ticketing.html",
+  "Museum of the Future": "https://museumofthefuture.ae/en/book/general-offers/general-admission",
+  "Shinjuku Gyoen": "https://policies.env.go.jp/national-garden/shinjukugyoen/english/guide/information/",
+  "Burj Khalifa": "https://tickets.atthetop.ae/",
+};
+
 const travelEssentials = {
   "Lisbon, Portugal": {
     airport: "LIS",
@@ -1140,6 +1151,25 @@ function getUsedPlanTexts(items) {
   return items.map((item) => normalizePlanText(`${item.name} ${item.description || ""}`));
 }
 
+function buildTicketSearchUrl(place) {
+  const placeName = place?.name || "travel activity";
+  const placeFrom = place?.from || destinationInput.value || "travel";
+  return `https://www.google.com/search?q=${encodeURIComponent(`${placeName} ${placeFrom} tickets`)}`;
+}
+
+function getTicketUrl(place) {
+  return officialTicketLinks[place?.name] || place?.ticketUrl || buildTicketSearchUrl(place);
+}
+
+function getTicketLabel(place) {
+  return officialTicketLinks[place?.name] || place?.ticketUrl ? "Buy tickets" : "Find tickets";
+}
+
+function getThingToDo(place) {
+  if (!place) return "Choose the exact activity you want for this day.";
+  return place.action || `Visit ${place.name}`;
+}
+
 function getPlaceIdea(destination, index, fallbackName) {
   const places = researchedPlaceIdeas[destination.name] || [];
   const researchedPlace = places[index % places.length];
@@ -1152,6 +1182,7 @@ function getPlaceIdea(destination, index, fallbackName) {
     name: stripDayPrefix(fallbackName),
     from: destination.name,
     note: "curated for this destination",
+    action: `Do ${stripDayPrefix(fallbackName)}`,
   };
 }
 
@@ -1193,6 +1224,7 @@ function createFallbackCandidate(dayNumber, destination, preferredInterest) {
       name: `Traveler's choice day ${dayNumber}`,
       from: destination.name,
       note: "custom place to add",
+      action: "Choose and book one fresh thing that is not already on the trip.",
     },
   };
 }
@@ -1263,7 +1295,10 @@ function renderItinerary() {
       name: "Custom activity",
       from: destinationInput.value || "Your trip",
       note: "added by you",
+      action: "Book or plan the custom activity you added.",
     };
+    const ticketUrl = getTicketUrl(place);
+    const ticketLabel = getTicketLabel(place);
     card.className = "day-card";
     card.innerHTML = `
       <div class="day-number"><span>${index + 1}</span>Day</div>
@@ -1274,6 +1309,8 @@ function renderItinerary() {
           <span>Place idea</span>
           <strong>${escapeHtml(place.name)}</strong>
           <small>From: ${escapeHtml(place.from)} · ${escapeHtml(place.note)}</small>
+          <p>${escapeHtml(getThingToDo(place))}</p>
+          <a href="${escapeHtml(ticketUrl)}" target="_blank" rel="noreferrer">${ticketLabel}</a>
         </div>
       </div>
       <div class="day-tools">

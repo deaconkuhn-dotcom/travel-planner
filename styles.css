@@ -536,7 +536,7 @@ select:focus {
 
 .place-source {
   display: grid;
-  gap: 3px;
+  gap: 5px;
   border: 1px solid rgba(15, 139, 141, 0.16);
   border-radius: 8px;
   padding: 10px 12px;
@@ -557,6 +557,31 @@ select:focus {
 .place-source small {
   color: var(--muted);
   line-height: 1.35;
+}
+
+.place-source p {
+  margin: 2px 0 0;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.place-source a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  min-height: 36px;
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 850;
+  text-decoration: none;
+  background: var(--accent);
+}
+
+.place-source a:hover {
+  background: var(--accent-strong);
 }
 
 .day-tools {

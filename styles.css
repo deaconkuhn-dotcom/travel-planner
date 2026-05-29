@@ -311,6 +311,47 @@ select:focus {
   font-size: 0.9rem;
 }
 
+.ad-panel {
+  display: grid;
+  gap: 8px;
+}
+
+.ad-label {
+  justify-self: start;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 8px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  background: #fff;
+}
+
+.ad-slot {
+  min-height: 180px;
+  border: 1px dashed rgba(15, 139, 141, 0.36);
+  border-radius: 8px;
+  padding: 16px;
+  background:
+    linear-gradient(135deg, rgba(15, 139, 141, 0.11), rgba(244, 162, 97, 0.11)),
+    #fbfdfb;
+}
+
+.ad-slot h2 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.ad-slot p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .planner-board {
   min-width: 0;
   padding: 24px;

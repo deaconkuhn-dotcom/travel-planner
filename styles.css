@@ -534,6 +534,31 @@ select:focus {
   background: #fff;
 }
 
+.place-source {
+  display: grid;
+  gap: 3px;
+  border: 1px solid rgba(15, 139, 141, 0.16);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(15, 139, 141, 0.07);
+}
+
+.place-source span {
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.place-source strong {
+  color: var(--ink);
+}
+
+.place-source small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
 .day-tools {
   display: grid;
   gap: 8px;

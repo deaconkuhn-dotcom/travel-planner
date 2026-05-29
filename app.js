@@ -534,6 +534,57 @@ const extraDayIdeas = [
   },
 ];
 
+const researchedPlaceIdeas = {
+  "Tokyo, Japan": [
+    { name: "Shibuya Crossing", from: "Shibuya, Tokyo, Japan", note: "famous city crossing" },
+    { name: "Senso-ji", from: "Asakusa, Tokyo, Japan", note: "historic temple district" },
+    { name: "Tsukiji Outer Market", from: "Chuo City, Tokyo, Japan", note: "food market streets" },
+    { name: "Ueno Park", from: "Taito City, Tokyo, Japan", note: "museums and park paths" },
+    { name: "Shinjuku Gyoen", from: "Shinjuku, Tokyo, Japan", note: "garden and city reset" },
+    { name: "teamLab Planets", from: "Toyosu, Tokyo, Japan", note: "immersive digital art museum" },
+    { name: "Harajuku", from: "Shibuya, Tokyo, Japan", note: "fashion streets and cafes" },
+    { name: "Ginza", from: "Chuo City, Tokyo, Japan", note: "shopping and galleries" },
+    { name: "Yanaka Ginza", from: "Taito City, Tokyo, Japan", note: "old Tokyo shopping street" },
+    { name: "Odaiba", from: "Tokyo Bay, Tokyo, Japan", note: "waterfront entertainment area" },
+  ],
+  "Paris, France": [
+    { name: "Louvre Museum", from: "1st arrondissement, Paris, France", note: "major art museum" },
+    { name: "Eiffel Tower", from: "7th arrondissement, Paris, France", note: "landmark viewpoint" },
+    { name: "Montmartre", from: "18th arrondissement, Paris, France", note: "hilltop neighborhood" },
+    { name: "Le Marais", from: "3rd and 4th arrondissements, Paris, France", note: "shops, food, and history" },
+    { name: "Musee d'Orsay", from: "7th arrondissement, Paris, France", note: "Impressionist art museum" },
+    { name: "Atelier des Lumieres", from: "11th arrondissement, Paris, France", note: "immersive digital art center" },
+    { name: "Canal Saint-Martin", from: "10th arrondissement, Paris, France", note: "waterfront cafes and walks" },
+    { name: "Luxembourg Gardens", from: "6th arrondissement, Paris, France", note: "classic city garden" },
+    { name: "Palais Garnier", from: "9th arrondissement, Paris, France", note: "opera house and architecture" },
+    { name: "Saint-Germain-des-Pres", from: "6th arrondissement, Paris, France", note: "cafes and galleries" },
+  ],
+  Singapore: [
+    { name: "Gardens by the Bay", from: "Marina Bay, Singapore", note: "gardens and Supertrees" },
+    { name: "Chinatown Complex Food Centre", from: "Chinatown, Singapore", note: "hawker food stop" },
+    { name: "Kampong Glam", from: "Rochor, Singapore", note: "heritage district" },
+    { name: "Singapore Botanic Gardens", from: "Tanglin, Singapore", note: "UNESCO-listed gardens" },
+    { name: "Sentosa", from: "Sentosa Island, Singapore", note: "beach and resort area" },
+    { name: "Marina Bay Sands", from: "Marina Bay, Singapore", note: "skyline hotel and viewpoint" },
+    { name: "Little India", from: "Rochor, Singapore", note: "markets, temples, and food" },
+    { name: "Jewel Changi Airport", from: "Changi, Singapore", note: "waterfall and airport complex" },
+    { name: "East Coast Park", from: "Southeast Singapore", note: "bike paths and seafood" },
+    { name: "National Gallery Singapore", from: "Civic District, Singapore", note: "Southeast Asian art museum" },
+  ],
+  "Dubai, UAE": [
+    { name: "Burj Khalifa", from: "Downtown Dubai, UAE", note: "skyscraper viewpoint" },
+    { name: "Dubai Creek", from: "Deira and Bur Dubai, Dubai, UAE", note: "abra boats and souks" },
+    { name: "Jumeirah Beach Residence", from: "Dubai Marina, Dubai, UAE", note: "beach and dining area" },
+    { name: "Dubai Desert Conservation Reserve", from: "Dubai, UAE", note: "desert safari area" },
+    { name: "Museum of the Future", from: "Sheikh Zayed Road, Dubai, UAE", note: "future-focused museum" },
+    { name: "Al Fahidi Historical Neighbourhood", from: "Bur Dubai, Dubai, UAE", note: "heritage lanes" },
+    { name: "Alserkal Avenue", from: "Al Quoz, Dubai, UAE", note: "galleries and design spaces" },
+    { name: "Dubai Miracle Garden", from: "Dubailand, Dubai, UAE", note: "seasonal flower garden" },
+    { name: "The Dubai Mall", from: "Downtown Dubai, UAE", note: "shopping and dining complex" },
+    { name: "Madinat Jumeirah", from: "Jumeirah, Dubai, UAE", note: "souks, canals, and hotels" },
+  ],
+};
+
 const travelEssentials = {
   "Lisbon, Portugal": {
     airport: "LIS",
@@ -1089,6 +1140,21 @@ function getUsedPlanTexts(items) {
   return items.map((item) => normalizePlanText(`${item.name} ${item.description || ""}`));
 }
 
+function getPlaceIdea(destination, index, fallbackName) {
+  const places = researchedPlaceIdeas[destination.name] || [];
+  const researchedPlace = places[index % places.length];
+
+  if (researchedPlace) {
+    return researchedPlace;
+  }
+
+  return {
+    name: stripDayPrefix(fallbackName),
+    from: destination.name,
+    note: "curated for this destination",
+  };
+}
+
 function buildActivityCandidates(destination) {
   const baseActivities = destination.activities.map((activity, index) => ({
     title: stripDayPrefix(activity.name),
@@ -1096,20 +1162,23 @@ function buildActivityCandidates(destination) {
     description: activity.description,
     interests: ["food", "culture", "outdoor", "relaxation", "shopping", "nightlife", "hidden"],
     role: dayRoles[index % dayRoles.length],
+    place: getPlaceIdea(destination, index, activity.name),
   }));
 
   return [
     ...baseActivities,
-    ...extraDayIdeas.map((idea) => ({
+    ...extraDayIdeas.map((idea, index) => ({
       ...idea,
       description: `${idea.description} Personalize it for ${destination.name} using the neighborhood that best matches your mood that day.`,
+      place: getPlaceIdea(destination, destination.activities.length + index, idea.title),
     })),
   ];
 }
 
 function isCandidateUsed(candidate, usedTexts) {
   const title = normalizePlanText(candidate.title);
-  return usedTexts.some((text) => text.includes(title));
+  const placeName = normalizePlanText(candidate.place?.name);
+  return usedTexts.some((text) => text.includes(title) || (placeName && text.includes(placeName)));
 }
 
 function createFallbackCandidate(dayNumber, destination, preferredInterest) {
@@ -1120,6 +1189,11 @@ function createFallbackCandidate(dayNumber, destination, preferredInterest) {
     description: `Use this as a fully custom ${destination.name} day built around ${interest.label}. Pick something new you have not done yet, then update this card with the exact plan.`,
     interests: [preferredInterest],
     role: "Open-choice finale",
+    place: {
+      name: `Traveler's choice day ${dayNumber}`,
+      from: destination.name,
+      note: "custom place to add",
+    },
   };
 }
 
@@ -1128,7 +1202,7 @@ function chooseFreshCandidate(candidates, usedTexts, preferredInterest, dayNumbe
   const unusedAny = candidates.find((candidate) => !isCandidateUsed(candidate, usedTexts));
   const candidate = unusedPreferred || unusedAny || createFallbackCandidate(dayNumber, destination, preferredInterest);
 
-  usedTexts.push(normalizePlanText(`${candidate.title} ${candidate.description}`));
+  usedTexts.push(normalizePlanText(`${candidate.title} ${candidate.description} ${candidate.place?.name || ""}`));
   return candidate;
 }
 
@@ -1151,6 +1225,7 @@ function makeItineraryDay(candidate, destination, dayNumber, totalDays) {
     name: `Day ${dayNumber}: ${candidate.role} - ${candidate.title}`,
     cost: dayCost,
     description: `${budgetNote} ${paceNote} Focus on ${interest.label}: ${interest.description} Fresh idea: ${candidate.description}`,
+    place: candidate.place,
   };
 }
 
@@ -1184,12 +1259,22 @@ function renderItinerary() {
 
   itinerary.forEach((item, index) => {
     const card = document.createElement("article");
+    const place = item.place || {
+      name: "Custom activity",
+      from: destinationInput.value || "Your trip",
+      note: "added by you",
+    };
     card.className = "day-card";
     card.innerHTML = `
       <div class="day-number"><span>${index + 1}</span>Day</div>
       <div class="day-editor">
         <input type="text" value="${escapeHtml(item.name)}" aria-label="Day ${index + 1} title" />
         <textarea aria-label="Day ${index + 1} description">${escapeHtml(item.description || (index === 0 ? "Keep this flexible while travel energy is low." : "Saved to your trip plan."))}</textarea>
+        <div class="place-source" aria-label="Place idea for day ${index + 1}">
+          <span>Place idea</span>
+          <strong>${escapeHtml(place.name)}</strong>
+          <small>From: ${escapeHtml(place.from)} · ${escapeHtml(place.note)}</small>
+        </div>
       </div>
       <div class="day-tools">
         <input type="number" min="0" value="${Number(item.cost || 0)}" aria-label="Day ${index + 1} cost" />

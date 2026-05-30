@@ -625,6 +625,35 @@ select:focus {
   background: var(--accent-strong);
 }
 
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.place-source .quick-link,
+.activity-stack a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  border: 1px solid rgba(15, 139, 141, 0.22);
+  border-radius: 8px;
+  padding: 6px 9px;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-decoration: none;
+  background: rgba(15, 139, 141, 0.08);
+}
+
+.place-source .quick-link:hover,
+.activity-stack a:hover {
+  color: #fff;
+  background: var(--accent);
+}
+
 .activity-stack {
   display: grid;
   gap: 8px;
@@ -672,6 +701,12 @@ select:focus {
   margin: 0;
   color: var(--ink);
   line-height: 1.38;
+}
+
+.activity-stack li > div {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
 }
 
 .day-tools {

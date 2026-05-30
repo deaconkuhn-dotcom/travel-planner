@@ -583,6 +583,186 @@ const researchedPlaceIdeas = {
     { name: "The Dubai Mall", from: "Downtown Dubai, UAE", note: "shopping and dining complex" },
     { name: "Madinat Jumeirah", from: "Jumeirah, Dubai, UAE", note: "souks, canals, and hotels" },
   ],
+  "Lisbon, Portugal": [
+    { name: "Alfama", from: "Lisbon, Portugal", note: "old-town lanes and viewpoints" },
+    { name: "Miradouro da Senhora do Monte", from: "Lisbon, Portugal", note: "city viewpoint" },
+    { name: "Jeronimos Monastery", from: "Belem, Lisbon, Portugal", note: "historic monastery" },
+    { name: "Belem Tower", from: "Belem, Lisbon, Portugal", note: "riverfront landmark" },
+    { name: "Pena Palace", from: "Sintra, Portugal", note: "palace day trip" },
+    { name: "Chiado", from: "Lisbon, Portugal", note: "cafes, shops, and tiled streets" },
+    { name: "Bairro Alto", from: "Lisbon, Portugal", note: "fado and nightlife district" },
+    { name: "LX Factory", from: "Alcantara, Lisbon, Portugal", note: "design shops and food hall" },
+  ],
+  "Kyoto, Japan": [
+    { name: "Gion", from: "Kyoto, Japan", note: "preserved streets and evening walks" },
+    { name: "Yasaka Shrine", from: "Higashiyama, Kyoto, Japan", note: "historic shrine" },
+    { name: "Fushimi Inari Taisha", from: "Fushimi, Kyoto, Japan", note: "thousands of torii gates" },
+    { name: "Arashiyama Bamboo Grove", from: "Arashiyama, Kyoto, Japan", note: "bamboo walk and river area" },
+    { name: "Kinkaku-ji", from: "Kyoto, Japan", note: "golden pavilion temple" },
+    { name: "Ryoan-ji", from: "Kyoto, Japan", note: "Zen rock garden" },
+    { name: "Nishiki Market", from: "Central Kyoto, Japan", note: "food market street" },
+    { name: "Pontocho Alley", from: "Kyoto, Japan", note: "narrow dining lane" },
+  ],
+  "Tulum, Mexico": [
+    { name: "Tulum Beach Road", from: "Tulum, Quintana Roo, Mexico", note: "beach clubs and restaurants" },
+    { name: "Tulum Archaeological Zone", from: "Tulum, Quintana Roo, Mexico", note: "cliffside Maya ruins" },
+    { name: "Playa Paraiso", from: "Tulum, Quintana Roo, Mexico", note: "popular beach" },
+    { name: "Gran Cenote", from: "Tulum, Quintana Roo, Mexico", note: "cenote swim stop" },
+    { name: "Cenote Calavera", from: "Tulum, Quintana Roo, Mexico", note: "near-town cenote" },
+    { name: "Sian Ka'an Biosphere Reserve", from: "Quintana Roo, Mexico", note: "nature reserve and lagoon tours" },
+    { name: "Tulum Pueblo", from: "Tulum, Quintana Roo, Mexico", note: "local restaurants and shops" },
+    { name: "Aldea Zama", from: "Tulum, Quintana Roo, Mexico", note: "cafes and calmer stays" },
+  ],
+  "New York City, USA": [
+    { name: "Central Park", from: "Manhattan, New York City, USA", note: "city park and walking routes" },
+    { name: "The Metropolitan Museum of Art", from: "Upper East Side, New York City, USA", note: "major art museum" },
+    { name: "Brooklyn Bridge", from: "New York City, USA", note: "skyline walk" },
+    { name: "Dumbo", from: "Brooklyn, New York City, USA", note: "waterfront views and pizza" },
+    { name: "High Line", from: "Chelsea, New York City, USA", note: "elevated park" },
+    { name: "Chelsea Market", from: "Chelsea, New York City, USA", note: "food hall" },
+    { name: "Washington Square Park", from: "Greenwich Village, New York City, USA", note: "neighborhood anchor" },
+    { name: "Staten Island Ferry", from: "Lower Manhattan, New York City, USA", note: "free harbor view route" },
+  ],
+  "London, England": [
+    { name: "Westminster Abbey", from: "Westminster, London, England", note: "historic church" },
+    { name: "South Bank", from: "London, England", note: "river walk and landmarks" },
+    { name: "Borough Market", from: "Southwark, London, England", note: "food market" },
+    { name: "British Museum", from: "Bloomsbury, London, England", note: "major museum" },
+    { name: "Covent Garden", from: "London, England", note: "shops, dining, and theatre area" },
+    { name: "Tower of London", from: "London, England", note: "fortress and crown jewels" },
+    { name: "Shoreditch", from: "East London, England", note: "street art and food" },
+    { name: "Greenwich", from: "London, England", note: "river day and maritime history" },
+  ],
+  "Rome, Italy": [
+    { name: "Colosseum", from: "Rome, Italy", note: "ancient amphitheater" },
+    { name: "Roman Forum", from: "Rome, Italy", note: "ancient city ruins" },
+    { name: "Vatican Museums", from: "Vatican City", note: "major art museum" },
+    { name: "Pantheon", from: "Rome, Italy", note: "ancient temple and church" },
+    { name: "Trevi Fountain", from: "Rome, Italy", note: "historic fountain" },
+    { name: "Trastevere", from: "Rome, Italy", note: "riverside dining lanes" },
+    { name: "Borghese Gallery", from: "Rome, Italy", note: "reservation-based art museum" },
+    { name: "Appian Way", from: "Rome, Italy", note: "ancient road and outdoor route" },
+  ],
+  "Barcelona, Spain": [
+    { name: "Sagrada Familia", from: "Barcelona, Spain", note: "Gaudi basilica" },
+    { name: "Gothic Quarter", from: "Barcelona, Spain", note: "historic lanes and plazas" },
+    { name: "El Born", from: "Barcelona, Spain", note: "shops, tapas, and museums" },
+    { name: "Park Guell", from: "Barcelona, Spain", note: "Gaudi park and viewpoints" },
+    { name: "Gracia", from: "Barcelona, Spain", note: "neighborhood squares and cafes" },
+    { name: "Barceloneta Beach", from: "Barcelona, Spain", note: "city beach" },
+    { name: "Montjuic", from: "Barcelona, Spain", note: "hill, museums, and views" },
+    { name: "La Boqueria", from: "Barcelona, Spain", note: "market hall" },
+  ],
+  "Sydney, Australia": [
+    { name: "Sydney Opera House", from: "Sydney, Australia", note: "harbor landmark" },
+    { name: "The Rocks", from: "Sydney, Australia", note: "historic lanes and pubs" },
+    { name: "Bondi to Coogee Walk", from: "Sydney, Australia", note: "coastal walking route" },
+    { name: "Manly Ferry", from: "Sydney Harbour, Australia", note: "scenic ferry ride" },
+    { name: "Manly Beach", from: "Sydney, Australia", note: "beach and sunset area" },
+    { name: "Taronga Zoo Sydney", from: "Sydney, Australia", note: "wildlife and harbor views" },
+    { name: "Blue Mountains", from: "New South Wales, Australia", note: "day trip viewpoints" },
+    { name: "Royal Botanic Garden Sydney", from: "Sydney, Australia", note: "harbor garden" },
+  ],
+  "Rio de Janeiro, Brazil": [
+    { name: "Ipanema Beach", from: "Rio de Janeiro, Brazil", note: "classic beach area" },
+    { name: "Arpoador", from: "Rio de Janeiro, Brazil", note: "sunset rocks and surf" },
+    { name: "Christ the Redeemer", from: "Rio de Janeiro, Brazil", note: "mountaintop landmark" },
+    { name: "Santa Teresa", from: "Rio de Janeiro, Brazil", note: "hillside arts district" },
+    { name: "Sugarloaf Mountain", from: "Rio de Janeiro, Brazil", note: "cable car viewpoint" },
+    { name: "Urca", from: "Rio de Janeiro, Brazil", note: "bayfront dining area" },
+    { name: "Copacabana Beach", from: "Rio de Janeiro, Brazil", note: "classic beach promenade" },
+    { name: "Rio de Janeiro Botanical Garden", from: "Rio de Janeiro, Brazil", note: "garden and lake area" },
+  ],
+  "Istanbul, Turkiye": [
+    { name: "Hagia Sophia", from: "Sultanahmet, Istanbul, Turkiye", note: "historic mosque and landmark" },
+    { name: "Blue Mosque", from: "Sultanahmet, Istanbul, Turkiye", note: "major mosque" },
+    { name: "Basilica Cistern", from: "Sultanahmet, Istanbul, Turkiye", note: "underground cistern" },
+    { name: "Topkapi Palace", from: "Istanbul, Turkiye", note: "Ottoman palace museum" },
+    { name: "Grand Bazaar", from: "Istanbul, Turkiye", note: "covered market" },
+    { name: "Spice Bazaar", from: "Istanbul, Turkiye", note: "food and spice market" },
+    { name: "Galata Tower", from: "Beyoglu, Istanbul, Turkiye", note: "tower and viewpoint" },
+    { name: "Kadikoy Market", from: "Asian side, Istanbul, Turkiye", note: "food market streets" },
+  ],
+  "Bangkok, Thailand": [
+    { name: "Grand Palace", from: "Bangkok, Thailand", note: "royal palace complex" },
+    { name: "Wat Pho", from: "Bangkok, Thailand", note: "temple and reclining Buddha" },
+    { name: "Chao Phraya River", from: "Bangkok, Thailand", note: "river boat route" },
+    { name: "Yaowarat Road", from: "Chinatown, Bangkok, Thailand", note: "street food area" },
+    { name: "Pak Khlong Talat", from: "Bangkok, Thailand", note: "flower market" },
+    { name: "Chatuchak Weekend Market", from: "Bangkok, Thailand", note: "large market" },
+    { name: "Jim Thompson House", from: "Bangkok, Thailand", note: "design and history museum" },
+    { name: "Khlong Lat Mayom Floating Market", from: "Bangkok, Thailand", note: "canal and market route" },
+  ],
+  "Bali, Indonesia": [
+    { name: "Tegallalang Rice Terrace", from: "Ubud, Bali, Indonesia", note: "rice terrace viewpoint" },
+    { name: "Ubud Art Market", from: "Ubud, Bali, Indonesia", note: "craft market" },
+    { name: "Tirta Empul Temple", from: "Bali, Indonesia", note: "sacred water temple" },
+    { name: "Tegenungan Waterfall", from: "Bali, Indonesia", note: "waterfall stop" },
+    { name: "Uluwatu Temple", from: "Bali, Indonesia", note: "cliff temple" },
+    { name: "Padang Padang Beach", from: "Bali, Indonesia", note: "south Bali beach" },
+    { name: "Canggu", from: "Bali, Indonesia", note: "surf, cafes, and boutiques" },
+    { name: "Seminyak Beach", from: "Bali, Indonesia", note: "beach clubs and dining" },
+  ],
+  "Amsterdam, Netherlands": [
+    { name: "Jordaan", from: "Amsterdam, Netherlands", note: "canals, shops, and cafes" },
+    { name: "Rijksmuseum", from: "Amsterdam, Netherlands", note: "major art museum" },
+    { name: "Museumplein", from: "Amsterdam, Netherlands", note: "museum district" },
+    { name: "Anne Frank House", from: "Amsterdam, Netherlands", note: "history museum" },
+    { name: "Nine Streets", from: "Amsterdam, Netherlands", note: "shopping lanes" },
+    { name: "Vondelpark", from: "Amsterdam, Netherlands", note: "park and bike route" },
+    { name: "A'DAM Lookout", from: "Amsterdam Noord, Netherlands", note: "skyline viewpoint" },
+    { name: "Foodhallen", from: "Amsterdam, Netherlands", note: "indoor food hall" },
+  ],
+  "Santorini, Greece": [
+    { name: "Fira", from: "Santorini, Greece", note: "cliffside town and caldera views" },
+    { name: "Oia", from: "Santorini, Greece", note: "blue domes and sunset views" },
+    { name: "Fira to Oia Trail", from: "Santorini, Greece", note: "caldera walking route" },
+    { name: "Akrotiri Archaeological Site", from: "Santorini, Greece", note: "ancient settlement" },
+    { name: "Red Beach", from: "Santorini, Greece", note: "volcanic beach" },
+    { name: "Nea Kameni", from: "Santorini, Greece", note: "volcanic island boat stop" },
+    { name: "Ammoudi Bay", from: "Oia, Santorini, Greece", note: "seafood and water views" },
+    { name: "Perissa Beach", from: "Santorini, Greece", note: "black sand beach" },
+  ],
+  "Marrakesh, Morocco": [
+    { name: "Jemaa el-Fnaa", from: "Marrakesh, Morocco", note: "main square and evening food stalls" },
+    { name: "Marrakesh Medina", from: "Marrakesh, Morocco", note: "souks and old city lanes" },
+    { name: "Bahia Palace", from: "Marrakesh, Morocco", note: "palace courtyards and tilework" },
+    { name: "Saadian Tombs", from: "Marrakesh, Morocco", note: "historic royal tombs" },
+    { name: "Jardin Majorelle", from: "Marrakesh, Morocco", note: "garden and design museum area" },
+    { name: "Gueliz", from: "Marrakesh, Morocco", note: "modern cafes and shops" },
+    { name: "Agafay Desert", from: "Marrakesh, Morocco", note: "desert day trip area" },
+    { name: "Atlas Mountains", from: "Morocco", note: "mountain day trip" },
+  ],
+  "Cape Town, South Africa": [
+    { name: "Table Mountain", from: "Cape Town, South Africa", note: "mountain viewpoint" },
+    { name: "Kloof Street", from: "Cape Town, South Africa", note: "restaurants and nightlife" },
+    { name: "V&A Waterfront", from: "Cape Town, South Africa", note: "harbor shops and dining" },
+    { name: "Robben Island", from: "Cape Town, South Africa", note: "historic island museum" },
+    { name: "Cape Point", from: "Cape Peninsula, South Africa", note: "coastal reserve" },
+    { name: "Kirstenbosch National Botanical Garden", from: "Cape Town, South Africa", note: "botanical garden" },
+    { name: "Camps Bay", from: "Cape Town, South Africa", note: "beach and sunset area" },
+    { name: "Bo-Kaap", from: "Cape Town, South Africa", note: "colorful historic neighborhood" },
+  ],
+  "San Francisco, USA": [
+    { name: "Golden Gate Bridge", from: "San Francisco, USA", note: "bay landmark and walking route" },
+    { name: "Presidio", from: "San Francisco, USA", note: "parks, trails, and views" },
+    { name: "Ferry Building", from: "San Francisco, USA", note: "food hall and waterfront" },
+    { name: "Embarcadero", from: "San Francisco, USA", note: "bayfront walking route" },
+    { name: "Mission District Murals", from: "San Francisco, USA", note: "street art and food route" },
+    { name: "Dolores Park", from: "San Francisco, USA", note: "neighborhood park" },
+    { name: "Alcatraz Island", from: "San Francisco, USA", note: "historic island tour" },
+    { name: "Golden Gate Park", from: "San Francisco, USA", note: "museums and gardens" },
+  ],
+  "Venice, Italy": [
+    { name: "St. Mark's Basilica", from: "Venice, Italy", note: "major landmark church" },
+    { name: "Rialto Bridge", from: "Venice, Italy", note: "canal bridge and market area" },
+    { name: "Doge's Palace", from: "Venice, Italy", note: "historic palace museum" },
+    { name: "Grand Canal", from: "Venice, Italy", note: "main canal route" },
+    { name: "Dorsoduro", from: "Venice, Italy", note: "galleries and quieter canals" },
+    { name: "Gallerie dell'Accademia", from: "Venice, Italy", note: "art museum" },
+    { name: "Murano", from: "Venice Lagoon, Italy", note: "glassmaking island" },
+    { name: "Burano", from: "Venice Lagoon, Italy", note: "colorful island streets" },
+  ],
 };
 
 const officialTicketLinks = {
@@ -1157,6 +1337,16 @@ function buildTicketSearchUrl(place) {
   return `https://www.google.com/search?q=${encodeURIComponent(`${placeName} ${placeFrom} tickets`)}`;
 }
 
+function buildSearchUrl(query) {
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function buildMapUrl(place) {
+  const placeName = place?.name || "travel activity";
+  const placeFrom = place?.from || destinationInput.value || "travel";
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${placeName} ${placeFrom}`)}`;
+}
+
 function getTicketUrl(place) {
   return officialTicketLinks[place?.name] || place?.ticketUrl || buildTicketSearchUrl(place);
 }
@@ -1170,47 +1360,103 @@ function getThingToDo(place) {
   return place.action || `Visit ${place.name}`;
 }
 
-function getInterestActivity(interestKey, destination) {
+function getPlaceLinkSet(place, destinationName) {
+  const placeName = place?.name || destinationName || "travel activity";
+  const placeFrom = place?.from || destinationName || "travel";
+
+  return [
+    { label: "Map", url: buildMapUrl(place) },
+    { label: "Tours", url: buildSearchUrl(`${placeName} ${placeFrom} tours`) },
+    { label: "Food nearby", url: buildSearchUrl(`best food near ${placeName} ${placeFrom}`) },
+    { label: "Travel tips", url: buildSearchUrl(`${placeName} ${placeFrom} visitor guide`) },
+  ];
+}
+
+function getActivityLink(activity, destinationName) {
+  if (activity.url) {
+    return { label: activity.linkLabel || "Open link", url: activity.url };
+  }
+
+  if (activity.place) {
+    return { label: "Open map", url: buildMapUrl(activity.place) };
+  }
+
+  return {
+    label: "Search ideas",
+    url: buildSearchUrl(`${activity.text} ${destinationName || destinationInput.value || "travel"}`),
+  };
+}
+
+function getInterestActivity(interestKey, destination, place) {
+  const placeName = place?.name || destination.name.split(",")[0];
   const options = {
-    food: `Try a local food stop or market near ${destination.name.split(",")[0]}.`,
-    culture: "Add a museum, historic site, gallery, or architecture stop nearby.",
-    outdoor: "Take a scenic walk, garden break, waterfront route, or viewpoint detour.",
-    relaxation: "Build in a slow cafe, spa, beach, pool, or long lunch pause.",
-    shopping: "Browse local shops, design stores, craft stalls, or a market street.",
-    nightlife: "Finish with live music, a rooftop, theatre, late dinner, or night district.",
-    hidden: "Add a quieter side street, small neighborhood, lesser-known viewpoint, or local cafe.",
-    beach: "Add a beach walk, swim stop, seafood meal, or sunset by the water.",
-    work: "Add a calm cafe, easy transit route, or low-stress neighborhood reset.",
+    food: `Make ${placeName} your lunch or snack anchor, then look for a local market, bakery, or casual restaurant nearby.`,
+    culture: `Use ${placeName} for a culture stop, then add one nearby museum, historic street, gallery, or architecture detour.`,
+    outdoor: `Build the afternoon around ${placeName} with a scenic walk, garden break, waterfront route, or viewpoint nearby.`,
+    relaxation: `Keep ${placeName} slow: add a cafe, spa, beach, pool, or long lunch pause instead of rushing.`,
+    shopping: `Browse the streets around ${placeName} for local shops, design stores, craft stalls, or a market route.`,
+    nightlife: `Save energy around ${placeName}, then line up live music, a rooftop, theatre, late dinner, or a night district.`,
+    hidden: `Use ${placeName} as the quieter discovery stop with side streets, a lesser-known viewpoint, or a local cafe.`,
+    beach: `Turn ${placeName} into the beach or water portion of the day with a swim, seafood meal, or sunset walk.`,
+    work: `Use ${placeName} as a low-stress break with a calm cafe, easy transit route, or flexible work reset.`,
   };
 
   return options[interestKey] || options.hidden;
 }
 
-function getEveningActivity(destination, interestKey) {
+function getEveningActivity(destination, interestKey, place) {
+  const placeName = place?.name || destination.name.split(",")[0];
+
   if (tripPaceInput.value === "Slow and relaxed") {
-    return "Keep the evening easy with dinner close to your hotel or a sunset walk.";
+    return `Keep the evening easy around ${placeName} with dinner close by or a sunset walk.`;
   }
 
   if (tripPaceInput.value === "Packed and adventurous") {
-    return `Add one more ${interestDetails[interestKey]?.label || "local"} stop before dinner.`;
+    return `Add ${placeName} as one more ${interestDetails[interestKey]?.label || "local"} stop before dinner.`;
   }
 
-  return `End with dinner in a walkable ${destination.name.split(",")[0]} neighborhood.`;
+  return `End near ${placeName} with dinner in a walkable ${destination.name.split(",")[0]} neighborhood.`;
+}
+
+function getDistinctPlaceIdea(destination, index, avoidName, fallbackName) {
+  const places = researchedPlaceIdeas[destination.name] || [];
+  const normalizedAvoid = normalizePlanText(avoidName);
+
+  for (let offset = 0; offset < Math.max(places.length, 1); offset += 1) {
+    const place = places[(index + offset) % places.length];
+    if (place && normalizePlanText(place.name) !== normalizedAvoid) {
+      return place;
+    }
+  }
+
+  return getPlaceIdea(destination, index, fallbackName);
 }
 
 function buildDayActivities(candidate, destination, dayNumber, interestKey) {
+  const afternoonPlace = getDistinctPlaceIdea(destination, dayNumber + 2, candidate.place?.name, candidate.title);
+  const eveningPlace = getDistinctPlaceIdea(destination, dayNumber + 6, candidate.place?.name, candidate.title);
+
   return [
     {
       time: "Morning",
       text: getThingToDo(candidate.place),
+      place: candidate.place,
+      linkLabel: officialTicketLinks[candidate.place?.name] ? "Tickets" : "Map",
+      url: officialTicketLinks[candidate.place?.name] || buildMapUrl(candidate.place),
     },
     {
       time: "Afternoon",
-      text: getInterestActivity(interestKey, destination),
+      text: getInterestActivity(interestKey, destination, afternoonPlace),
+      place: afternoonPlace,
+      linkLabel: "Map",
+      url: buildMapUrl(afternoonPlace),
     },
     {
       time: "Evening",
-      text: getEveningActivity(destination, interestKey),
+      text: getEveningActivity(destination, interestKey, eveningPlace),
+      place: eveningPlace,
+      linkLabel: "Explore",
+      url: buildSearchUrl(`${eveningPlace.name} ${eveningPlace.from} evening restaurants`),
     },
   ].map((activity, index) => ({
     ...activity,
@@ -1234,6 +1480,17 @@ function getPlaceIdea(destination, index, fallbackName) {
   };
 }
 
+function getBestPlaceIdea(destination, index, fallbackName) {
+  const places = researchedPlaceIdeas[destination.name] || [];
+  const normalizedFallback = normalizePlanText(fallbackName);
+  const matchedPlace = places.find((place) => {
+    const normalizedPlace = normalizePlanText(place.name);
+    return normalizedFallback.includes(normalizedPlace) || normalizedPlace.includes(normalizedFallback);
+  });
+
+  return matchedPlace || getPlaceIdea(destination, index, fallbackName);
+}
+
 function buildActivityCandidates(destination) {
   const baseActivities = destination.activities.map((activity, index) => ({
     title: stripDayPrefix(activity.name),
@@ -1241,7 +1498,7 @@ function buildActivityCandidates(destination) {
     description: activity.description,
     interests: ["food", "culture", "outdoor", "relaxation", "shopping", "nightlife", "hidden"],
     role: dayRoles[index % dayRoles.length],
-    place: getPlaceIdea(destination, index, activity.name),
+    place: getBestPlaceIdea(destination, index, activity.name),
   }));
 
   return [
@@ -1353,8 +1610,10 @@ function renderItinerary() {
           { time: "Extra stop", text: "Add one nearby meal, walk, or neighborhood stop." },
           { time: "Evening", text: "Finish with dinner or a relaxed final activity." },
         ];
+    const destinationName = destinationInput.value || place.from || "Your trip";
     const ticketUrl = getTicketUrl(place);
     const ticketLabel = getTicketLabel(place);
+    const placeLinks = getPlaceLinkSet(place, destinationName);
     card.className = "day-card";
     card.innerHTML = `
       <div class="day-number"><span>${index + 1}</span>Day</div>
@@ -1367,19 +1626,32 @@ function renderItinerary() {
           <small>From: ${escapeHtml(place.from)} · ${escapeHtml(place.note)}</small>
           <p>${escapeHtml(getThingToDo(place))}</p>
           <a href="${escapeHtml(ticketUrl)}" target="_blank" rel="noreferrer">${ticketLabel}</a>
+          <div class="quick-links" aria-label="Extra links for ${escapeHtml(place.name)}">
+            ${placeLinks
+              .map(
+                (link) => `
+                  <a class="quick-link" href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>
+                `,
+              )
+              .join("")}
+          </div>
         </div>
         <div class="activity-stack" aria-label="Activities for day ${index + 1}">
           <span>Daily activity schedule</span>
           <ul>
             ${activities
-              .map(
-                (activity) => `
+              .map((activity) => {
+                const link = getActivityLink(activity, destinationName);
+                return `
                   <li>
                     <strong>${escapeHtml(activity.time)}</strong>
-                    <p>${escapeHtml(activity.text)}</p>
+                    <div>
+                      <p>${escapeHtml(activity.text)}</p>
+                      <a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label)}</a>
+                    </div>
                   </li>
-                `,
-              )
+                `;
+              })
               .join("")}
           </ul>
         </div>
